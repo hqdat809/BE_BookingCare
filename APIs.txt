@@ -1,0 +1,6 @@
+backend: nodejs (database)
+frontend: reactjs (giao diện người dùng)
+
+APIs là 1 đường link trên con server, ví dụ:
+	http://localhost:8081/get-crud -> api
+	object -> json
