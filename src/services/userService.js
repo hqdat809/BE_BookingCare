@@ -14,7 +14,7 @@ let handleUserLogin = (email, password) => {
 
                 let user = await db.User.findOne({
                     where: { email: email },
-                    attributes: ['email', 'roleId', 'password'],
+                    attributes: ['email', 'roleId', 'password', 'firstName', 'lastName'],
                     raw: true
                 })
                 if (user) {
@@ -107,8 +107,10 @@ let createNewUser = async (data) => {
                     lastName: data.lastName,
                     address: data.address,
                     phoneNumber: data.phoneNumber,
-                    gender: data.gender === '1' ? true : false,
+                    gender: data.gender,
                     roleId: data.roleId,
+                    positionId: data.positionId,
+                    image: data.avatar
                 })
                 resolve({
                     errCode: 0,
@@ -176,6 +178,12 @@ let updateUser = (data) => {
                 user.lastName = data.lastName
                 user.address = data.address
                 user.phoneNumber = data.phoneNumber
+                user.roleId = data.roleId
+                user.positionId = data.positionId
+                user.gender = data.gender
+                if (data.avatar) {
+                    user.image = data.avatar
+                }
 
                 await user.save()
                 resolve({
